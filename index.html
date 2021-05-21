@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Назначение</title>
+</head>
+<body>
+<div class="container">
+    <form class="first_form">
+        <h3>Создание матрицы</h3>
+        <label>Количество столбцов</label><br><input type="number" id="colNum"><br><br>
+        <label>Количество строк</label><br><input type="number" id="strNum">
+        <br><br>
+        <button type="button" class="btn" onclick='disableElem(this); delElem(buttonCreateTbl); create1Table(this); addButton(this)'>Создать матрицу</button>
+    </form>
+    <form class="second_form non-visible">
+        <label>Максимальное значение</label><br><input type="number" class="max"><br>
+    <button type="button" class="btn" onclick='fillCells(this)'>Заполнить поля случайными числами</button>
+        <button type="button" class="btn" onclick='clearCells(this)'>Очистить поля</button>
+        <a href="cats.html">Посмотреть котиков</a>
+        <h3 class="second_h">Матрица</h3>
+
+</form>
+    <form class="third_form non-visible">
+        <label>Максимальное значение</label><br><input type="number" class="max"><br>
+        <button type="button" class="btn" onclick='fillCells(this)'>Заполнить поля случайными числами</button>
+        <button type="button" class="btn" onclick='clearCells(this)'>Очистить поля</button>
+        <h3 class="second_h">Матрица для критерия "Количество успешно выполненных задач"</h3>
+
+    </form>
+
+</div>
+</body>
+<style>
+    .container {
+        font-family: arial;
+        margin: 50px;
+        padding: 30px;
+        width: auto;
+        height: auto;
+        background-color: #a9a9a938;
+        border: 2px solid dimgrey;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    form{
+        border: 1px solid grey;
+        padding: 10px;
+        width: 100%;
+    }
+.second_form{
+    margin-top: 20px;
+}
+    button, a{
+        margin: 5px 5px  5px 0;
+        background-color: #b1b1b1;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        text-transform: uppercase;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 15px;
+    }
+    button:hover{
+        background-color: #c5c5c5;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    button:focus {
+        outline: none;
+    }
+    button:active {
+        background-color: #b3b0b0;
+    }
+input{
+    padding: 4px;
+    width: 100px;
+    font-size: 18px;
+}
+    .non-visible {
+        display: none;
+    }
+    h3{
+        margin: 0 0 20px 0;
+    }
+    .second_h{
+        margin-top: 20px;
+    }
+
+    .max {
+        margin: 5px 0 10px 0;
+
+    }
+    table{
+        margin-bottom: 10px;
+    }
+    .disabled{
+
+    }
+    a {
+        text-decoration: none;
+        background-color: #03a9f4;;
+    }
+    a:hover{
+        background-color: #2196f3;
+    }
+    a:active{
+        background-color: #2287d8;
+    }
+</style>
+<script>
+function create1Table() {
+        let x = document.querySelector('#strNum').value;
+        let y = document.querySelector('#colNum').value;
+        let container = document.querySelector('.second_form');
+
+
+//create table
+            let tbl = document.createElement('table');
+            let tblBody = document.createElement('tbody');
+            for (let i = 0; i < x; i++) {
+                let row = document.createElement("tr");
+                for (let j = 0; j < y; j++) {
+                    let cell = document.createElement("td");
+                    cell.innerHTML = "<input>";
+                    row.appendChild(cell);
+                }
+                tblBody.appendChild(row);
+            }
+            tbl.appendChild(tblBody);
+            container.appendChild(tbl);
+
+        //add second form
+        let form2 = document.querySelector('.second_form');
+        form2.classList.remove('non-visible');
+
+    }
+function fillCells(){
+let max = Number(document.querySelector('.max').value) + 1;
+    let cellMass = document.querySelectorAll('table input');
+        for (let i = 0; i < cellMass.length ; i++){
+            cellMass[i].value = getRandomInt(max);
+        }
+}
+function clearCells(){
+    let cellMass = document.querySelectorAll('table input');
+    for (let i = 0; i < cellMass.length ; i++){
+        cellMass[i].value = '';
+    }
+
+}
+function getRandomInt(num){
+        return Math.floor(Math.random() * Math.floor(num));
+    }
+/*
+function addButton(){
+    let container = document.querySelector('.second_form');
+    let actBtn = document.createElement('button');
+    actBtn.innerText = 'Рассчитать';
+    actBtn.classList.add('act-button');
+    actBtn.setAttribute('onclick', 'get1Result(this); return false;');
+    container.append(actBtn);
+}
+
+ */
+let buttonCreateTbl = document.querySelector('button');
+function delElem(elem){
+
+    elem.parentNode.removeChild(elem);
+}
+
+function disableElem(){
+    document.querySelector('#strNum').disabled = true;
+    document.querySelector('#colNum').disabled = true;
+}
+function get1Result() {
+//document.write('<br> <p style="font-size: 20px; text-transform: uppercase; text-align: center">Тут должна быть функция, рассчитывающая решение, но есть только грустный котик:С</p> <img style="margin: auto 30%;" src="https://banana.by/uploads/thumbs/248/247962.jpg" alt="Грустный кот">');
+    let arr = document.querySelectorAll('table input');
+    let table1ValuesArray = [];
+    for (let o = 0; o < arr.length; o++) {
+        table1ValuesArray.push(arr[o].value); //Или то что нужно
+    }
+    let x = document.querySelector('#strNum').value;
+    let y = document.querySelector('#colNum').value;
+    let t;
+//   arr[0].disabled = true;
+
+    let matrix1 = listToMatrix(table1ValuesArray, y);
+    console.log(matrix1);
+
+for (let task = 0; task < matrix1[0].length; task++){
+
+    for (let dev = 0; dev < matrix1[0][0]; dev++){
+        console.log(matrix1[dev][task]);
+    }
+}
+    console.log(matrix1[0][0]);
+
+    function listToMatrix(list, elementsPerSubArray) {
+        let matrix = [], developer, task;
+
+        for (developer = 0, task = -1; developer < list.length; developer++) {
+            if (developer % elementsPerSubArray === 0) {
+                task++;
+                matrix[task] = [];
+            }
+
+            matrix[task].push(list[developer]);
+        }
+
+        return matrix;
+    }
+}
+
+</script>
+</html>
